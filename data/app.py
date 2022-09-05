@@ -8,14 +8,14 @@ from flask import Flask, jsonify
 import  configparser
 
 config = configparser.ConfigParser()
-config.read('../../ini_file.ini')
+config.read('../../my_config.ini')
 
 config.sections()
 DBPass = config.get('postgres', 'password')
 
 # flask setup
 
-connection_string = f"postgres:{DBPass}@localhost:5432/project_3_db"
+connection_string = f"postgres:{DBPass}@localhost:5432/Project3"
 engine = create_engine(f'postgresql://{connection_string}')
 
 
