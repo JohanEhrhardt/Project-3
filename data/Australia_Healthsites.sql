@@ -1,8 +1,8 @@
 
 CREATE TABLE IF NOT EXISTS public.australia_healthsites
 (
-    "X" double precision,
-    "Y" double precision,
+    lat double precision,
+    lon double precision,
     osm_id numeric NOT NULL,
     osm_type character varying(250) COLLATE pg_catalog."default",
     completeness numeric,
