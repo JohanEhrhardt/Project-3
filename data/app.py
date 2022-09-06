@@ -59,7 +59,15 @@ def healthcaretypes():
 
 @app.route("/api/v0/healthsites")
 def healthsites():
-    df = pd.read_sql("Select lat,lon,osm_id, completeness,loc_amenity, access_hours, addr_postcode, meta_healthcare, loc_name From australia_healthsites Where lat is not null and lon is not null", conn)  
+
+    sqltext1 = "Select ah.lat,ah.lon,ah.osm_id, ah.completeness,ah.loc_amenity, ah.access_hours, ah.addr_postcode, ah.meta_healthcare, ah.loc_name ,"
+    sqltext2 = "spc.state, spc.abbreviation From australia_healthsites ah Left Join StatePostCodes   spc on to_number(addr_postcode,'9999') Between spc.postcode_low and spc.postcode_high "
+    sqltext3 = "Where lat is not null and lon is not null and substring(COALESCE(addr_postcode,'0'),1,1) IN ('0','1','2','3','4','5','6','7','8','9')"
+
+    sqltext = sqltext1 + sqltext2 +sqltext3
+    print(sqltext)
+
+    df = pd.read_sql(sqltext, conn)  
     
     data = []
 
@@ -75,7 +83,9 @@ def healthsites():
             "access_hours":row['access_hours'],
             "addr_postcode":row['addr_postcode'],
             "meta_healthcare":row['meta_healthcare'],
-            "loc_name":row['loc_name']           
+            "loc_name":row['loc_name'],
+            "state_name": row['state'], 
+            "state_code": row['abbreviation'],                      
         }])
 
 
