@@ -57,6 +57,37 @@ def healthcaretypes():
 
 
 
+@app.route("/api/v0/healthsites")
+def healthsites():
+    df = pd.read_sql("Select lat,lon,osm_id, completeness,loc_amenity, access_hours, addr_postcode, meta_healthcare, loc_name From australia_healthsites Where lat is not null and lon is not null", conn)  
+    
+    data = []
+
+    for index, row in df.iterrows():
+    
+
+        data.append([{
+            "lat": row['lat'],
+            "lon": row['lon'],
+            "osm_id": row['osm_id'],
+            "completeness": row['completeness'],
+            "loc_amenity":row['loc_amenity'],
+            "access_hours":row['access_hours'],
+            "addr_postcode":row['addr_postcode'],
+            "meta_healthcare":row['meta_healthcare'],
+            "loc_name":row['loc_name']           
+        }])
+
+
+
+
+
+    return jsonify(data)
+
+    #return df.to_json()
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
