@@ -1,4 +1,7 @@
-
+var pharmacyLayer  = new L.layerGroup();
+var doctorlayer    = new L.LayerGroup();
+var cliniclayer    = new L.LayerGroup();
+var social_facility_Layer = new L.LayerGroup();
 
 
 function createMap(sites) {
@@ -30,7 +33,11 @@ function createMap(sites) {
 
     // Create an overlayMaps object to hold the bikeStations layer
     var overlayMaps = {
-      "Healthsites": sites
+      "Healthsites": sites,
+      "pharmacy"   : pharmacyLayer,
+      "doctor"     : doctorlayer,
+      "clinic"     : cliniclayer,
+      "social_facility" : social_facility_Layer
     };
 
     console.log("Map and layers are set")
@@ -38,8 +45,8 @@ function createMap(sites) {
 
       // Create the map object with options
     var map = L.map("map", {
-      center: [153.73, -27.0059],
-      zoom: 2,
+      center: [-27, 153],
+      zoom: 4,
       layers: [lightmap, sites]
     });
 
@@ -63,6 +70,12 @@ d3.json("http://127.0.0.1:5000/api/v0/healthsites").then(
   var sites = data;
   var siteMarkers = [];
 
+  var pharmacyMarkers = [];
+  var doctorMarkers = [];
+  var clinicMarkers = [];
+  var socialMarkers = [];
+
+
   console.log(sites.length);
 
   for (var index = 0; index < sites.length; index++) {
@@ -74,21 +87,29 @@ d3.json("http://127.0.0.1:5000/api/v0/healthsites").then(
       vAmenity = sites[index][0].loc_amenity;
       vName    = sites[index][0].loc_name;
 
-      console.log(vLat);
-      console.log(vLon);
-      console.log(vAmenity);
-      console.log(vName);
 
-
-      var siteMarker = L.circleMarker([lat, lon])
+      var siteMarker = L.circleMarker([vLon,vLat])
       .bindPopup("<h3>Name: " + vName + "</h3><h3>Amenity: "+vAmenity+"<h3>");
      
       siteMarkers.push(siteMarker);
+
+      if (vAmenity === 'pharmacy'){
+
+        var pharmacyMarker = L.circleMarker([vLon,vLat])
+        .bindPopup("<h3>Name: " + vName + "</h3><h3>Amenity: "+vAmenity+"<h3>");
+
+        pharmacyMarkers.push(pharmacyMarker);
+
+      } 
+
+      console.log(pharmacyMarkers)
+    
 
   }  
  
   console.log(data);
   createMap(L.layerGroup(siteMarkers));
+  
 
 }).catch(error => {
    console.log("error fetching url :", error);
