@@ -30,11 +30,10 @@ function createMap(sites) {
   });
 
 
-
   // Define baseMaps Object to Hold Base Layers
   var baseMaps = {
-    "Light Map" : lightmap,
-    "Satellite" : satelliteMap
+    "Light Map": lightmap,
+    "Satellite": satelliteMap
   };
 
 
