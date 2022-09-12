@@ -7,6 +7,7 @@ import pandas as pd
 
 from flask import Flask, jsonify, render_template
 import  configparser
+from flask import Response
 
 config = configparser.ConfigParser()
 config.read('../../my_config.ini')
@@ -32,22 +33,16 @@ app = Flask(__name__)
 # flask routes
 @app.route("/")
 def homepage():
-    return render_template("index.html")
+    return (
+        f"Welcome to the Australia Health Sites APIs <br/>"
+        f"Available Routes:<br/>"
+        f"/api/healthcaretypes<br/>"
+        f"/api/v0/healthsites<br/>"
+        f"/api/v0/metaoperators<br/>"
+        f"/api/v0/statestats<br/>"
 
+    )
 
-# @app.route("/api/healthcareloc")
-# def healthcareloc():
-#     session = Session(engine)
-#     results = session.query(australia_healthsites.osm_id).all()
-#     session.close()
-#     loc_amenity = list(np.ravel(results))
-#     return jsonify(loc_amenity)
-
-# @app.route("/api/readsql")
-# def readsql():
-#     data = pd.read_sql("SELECT osm_id FROM australia_healthsites", conn)
-#     loc_amenity = list(np.ravel(data))
-#     return jsonify(loc_amenity)
 
 @app.route("/api/healthcaretypes")
 def healthcaretypes():
@@ -97,6 +92,24 @@ def healthsites():
     #return df.to_json()
 
 
+@app.route("/api/v0/metaoperators")
+def metaoperators():
+
+    
+    sqltext = "Select * From meta_operators_v"
+    df = pd.read_sql(sqltext, conn)  
+
+    return Response(df.to_json(orient="records"), mimetype='application/json')
+
+
+@app.route("/api/v0/statestats")
+def statestats():
+
+    
+    sqltext = "Select * From statestats_v"
+    df = pd.read_sql(sqltext, conn)  
+
+    return Response(df.to_json(orient="records"), mimetype='application/json')
 
 
 if __name__ == '__main__':

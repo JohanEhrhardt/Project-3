@@ -87,8 +87,9 @@ function build_graphs(sampleid)
         console.log("Completeness is %s.",  completeness) ; 
 
 
+
         // Trig to calc meter point
-        var degrees = (180 - (completeness*20)),
+        var degrees = (180 - (completeness*3.5)),
             radius = .5;
         var radians = degrees * Math.PI / 180;
         var x = radius * Math.cos(radians);
@@ -112,7 +113,7 @@ function build_graphs(sampleid)
                       hoverinfo : 'text+name'},
                     { values    : [50/5, 50/5, 50/5, 50/5, 50/5,  50],
                       rotation  : 90,
-                      text      : ['40+', '30-40', '30-20', '20-10','0-10',''],
+                      text      : ['40+', '30-40', '20-30', '10-20','0-10',''],
                       textinfo  : 'text',
                       textposition :'inside',
                       marker       : {colors:['rgba(14, 100, 0, .5)', 
@@ -121,7 +122,7 @@ function build_graphs(sampleid)
                                               'rgba(202, 209, 95, .5)',
                                               'rgba(232, 226, 202, .5)',
                                               'rgba(255, 255, 255, 0)']},
-                      labels      : ['40+', '30-40', '30-20', '20-10','0-10',''],
+                      labels      : ['40+', '30-40', '20-30', '10-20','0-10',''],
                       hoverinfo   : 'label',
                       hole        : .5,
                       type        : 'pie',
@@ -132,7 +133,7 @@ function build_graphs(sampleid)
                                 path: path,
                                 fillcolor: '850000',
                                 line: {color: '850000'}}],
-                       title    : '<b>Belly Button Washing Frequency</b> <br> Scrubs per Week',
+                       title    : '<b>Completeness</b> <br> Completeness of the dataset',
                        height   : 500,
                        width    : 500,
                        xaxis    : {zeroline:false, showticklabels:false, showgrid: false, range: [-1, 1]},
