@@ -90,7 +90,7 @@ function get_arrays (p_statecode, p_rowcount, p_type) {
       console.log("TEST")      
        
 
-       var xtitle = 'Australia Healthsite Distirbution' 
+       var xtitle = 'Australia Healthsites Distirbution' 
 
         // // create data
         // var data = {

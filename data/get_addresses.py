@@ -40,7 +40,7 @@ australia_healthsites = base.classes.australia_healthsites
 # READING DATA FROM DATABASE AND STORE IN DATAFRAME
 
 # FOR TESTING PLEASE LIMIT THE ROWCOUNT
-df = pd.read_sql("SELECT osm_id, lat, lon FROM australia_healthsites where lat is not null and lon is not null", conn)
+df = pd.read_sql("SELECT osm_id, lat, lon FROM australia_healthsites where lat is not null and lon is not null LIMIT 5", conn)
 
 
 # initialize Nominatim API
